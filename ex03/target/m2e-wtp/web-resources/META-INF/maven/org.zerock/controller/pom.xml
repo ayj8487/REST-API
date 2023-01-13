@@ -20,6 +20,14 @@
 		Test JUint 버젼 4.12 변경
 	-->
 	
+	<!-- 기존 log주석 후 추가 -->	
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+	
+	
 	<!-- JUnit 버젼 변경 후 추가 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -56,6 +64,7 @@
 		</dependency>
 		
 	<!-- JSON 코어 라이브러리 -->
+	<!-- JSON : 키 와 값으로 이루어진 경량데이터 표현 방식 -->
 	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -107,6 +116,7 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+<!-- 		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -131,7 +141,7 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-
+-->
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
