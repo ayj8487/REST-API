@@ -1,5 +1,11 @@
 package org.zerock.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,5 +63,23 @@ public class SampleController {
 		return new SampleVO(321, "영준", "안");
 	}
 	
-	
+	// 3. 컬렉션 타입(리스트,배열) 의 객체 반환
+	// http://localhost:8080/sample/getList
+	// 1 부터 10 미만까지 루프를 처리하면서 SampleVo 객체를 만들어 List<SampleVO>로 만듦
+	@GetMapping(value = "/getList")
+	public List<SampleVO> getList(){
+		return IntStream.range(1, 10)
+				.mapToObj(i -> new SampleVO(i, i + "First", i + " Last"))
+				.collect(Collectors.toList());
+	}
+	// 맵의 경우 '키' 와 '값' 을 가지는하나의 객체로 간주
+	// 맵의 경우 '키' 에 속하는 데이터는 XML 로 변환되는 경우에 태그의 이름이 되기 때문에 문자열 지정
+	// http://localhost:8080/sample/getMap
+	@GetMapping(value = "/getMap")
+	public Map<String, SampleVO> getMap(){
+		Map<String, SampleVO> map = new HashMap<>();
+		map.put("First", new SampleVO(123, "안영준", "안녕안녕"));
+		
+		return map;
+	}
 }
