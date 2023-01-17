@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,4 +84,27 @@ public class SampleController {
 		
 		return map;
 	}
+	// 4. ResponseEntity 타입 
+	// REST 방식으로 호출하는경우 데이터 자체를 전송하기 때문에 데이터와 함께 상태메시지 등을 함께전달
+	// HTTP 의 상태 코드와 에러 등 전달 받을 수 있음
+	/** 
+	 check 는 height/weight 파라미터를 전달받음, 이때 만약 height 값이 150 보다 적다면 502(BAD_GATEWAY)
+		그렇지않다면 200(ok) 코드와 데이터를 전송함 
+	http://localhost:8080/sample/check.json?height=140&weight=60	
+	(개발자 모드로 새로고침시 502	나 200이 전달되는것을 볼 수 있음)
+	*/
+	@GetMapping(value = "/check", params = {"height", "weight"})
+	public ResponseEntity<SampleVO> check(Double height, Double weight){
+		SampleVO vo = new SampleVO(0, ""+ height, "" + weight);
+
+		ResponseEntity<SampleVO> result = null;
+		
+		if (height < 150) {
+			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(vo);
+		}else {
+			result = ResponseEntity.status(HttpStatus.OK).body(vo);
+		}
+		return result;
+	}
+	
 }
