@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.SampleVO;
@@ -34,7 +35,7 @@ public class SampleController {
 @CrossOrigin : Ajax의 크로스 도메인 문제를 해결해주는 어노테이션
 @RequestBody : JSON 데이터를 원하는 타입으로 바인딩 처리
  */	
-	
+	// 1 - 1 @RestContoller 의 반환타입
 	// 1. 문자열 반환
 	// 기존의 @Controller는 문자열 반환시 JSP파일의 이름으로 처리하지만 @Restcontroller는 순수한 데이터 
 	@GetMapping(value = "/getText", produces = "text/plain; charset=UTF-8")
@@ -106,5 +107,20 @@ public class SampleController {
 		}
 		return result;
 	}
+
+	// 2 - 1 @RestController에서의 파라미터
+	// 1. @PathVariable 
+	// URL 상에 경로의 일부를 파라미터로 사용 {} 로 처리된 부븐은 컨트롤러에서 메서드의 변수로 처리 가능
+	// @PathVariable 은 {} 의 이름을 처리할 때 사용
+	// @PathVariable을 적용하고 싶은 경우 {} 을 이용해 변수명을 지정하고 지정된 이름의 변수 값을 얻을 수 있음, 
+	// 		값을 얻을때는 int나 double같은 기본자료형 사용 불가
+	// http://localhost:8080/sample/product/String(문자열)/int(숫자) 호출시 변수의 값으로 처리되는것을 확인
+	@GetMapping("/product/{cat}/{pid}")
+	public String[] getPath(
+			@PathVariable("cat") String cat,
+			@PathVariable("pid") Integer pid) {
+		return new String[] {"category: " + cat, "productid "+ pid};
+	}
+			
 	
 }
