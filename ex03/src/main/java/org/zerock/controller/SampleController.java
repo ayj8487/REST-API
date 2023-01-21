@@ -11,9 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.SampleVO;
+import org.zerock.domain.Ticket;
 
 import lombok.extern.log4j.Log4j;
 
@@ -121,6 +124,16 @@ public class SampleController {
 			@PathVariable("pid") Integer pid) {
 		return new String[] {"category: " + cat, "productid "+ pid};
 	}
-			
 	
+	// 2. @RequestBody 
+	// @RequestBody 는 전달된 요청의 내용 으로 해당파라미터의 타입으로 반환,
+	// 또는 다양한 포맷의 입력 데이터를 반환 할 수 있다.
+	// 대부분 JSON 데이터를 서버에 보내서 원하는 탕비의 객체로 변환하는 용도로 사용
+	// RequestBody 말 그대로 요청한 내용 을 처리하기 때문에 @PostMapping 만을 사용
+	@PostMapping("/ticket")
+	public Ticket convert(@RequestBody Ticket ticket) {
+		log.info("convert..... ticket "+ticket);
+		
+		return ticket;
+	}
 }
