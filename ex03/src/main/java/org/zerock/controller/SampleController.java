@@ -118,7 +118,7 @@ public class SampleController {
 	// @PathVariable을 적용하고 싶은 경우 {} 을 이용해 변수명을 지정하고 지정된 이름의 변수 값을 얻을 수 있음, 
 	// 		값을 얻을때는 int나 double같은 기본자료형 사용 불가
 	// http://localhost:8080/sample/product/String(문자열)/int(숫자) 호출시 변수의 값으로 처리되는것을 확인
-	@GetMapping("/product/{cat}/{pid}")
+	@GetMapping(" /product/{cat}/{pid}")
 	public String[] getPath(
 			@PathVariable("cat") String cat,
 			@PathVariable("pid") Integer pid) {
